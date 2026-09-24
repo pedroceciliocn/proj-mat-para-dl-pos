@@ -152,14 +152,6 @@ source .venv/bin/activate
 python -m pip install -r requirements.txt
 ```
 
-## Google Colab
-
-O notebook autocontido
-[`notebooks/projeto_rede_neural_manual.ipynb`](notebooks/projeto_rede_neural_manual.ipynb)
-pode ser enviado diretamente ao Colab em **Arquivo → Fazer upload de notebook**.
-Depois que o repositório estiver público, também será possível adicionar ao topo
-deste README o botão “Open in Colab” apontando para a URL definitiva.
-
 ## Testes
 
 ```bash
@@ -185,15 +177,6 @@ ou `pull request`.
 ├── src/rede_neural_manual.py           # rede feita somente com NumPy
 ├── tests/test_rede_neural_manual.py    # testes automatizados
 ├── resultados/                         # métricas e gráficos reproduzidos
-├── notebooks/
-│   └── projeto_rede_neural_manual.ipynb
-└── docs/PLANO_GLICEMIA.md              # proposta para a segunda etapa
+└── notebooks/
+    └── projeto_rede_neural_manual.ipynb
 ```
-
-## Próxima etapa: previsão de glicemia
-
-A ideia de prever glicemia a partir do histórico do paciente, carboidratos e
-insulina é interessante, mas muda o problema de classificação para previsão
-temporal/regressão. O desenho responsável dessa etapa está em
-[`docs/PLANO_GLICEMIA.md`](docs/PLANO_GLICEMIA.md). Ela deve ser tratada como
-experimento acadêmico, não como ferramenta para orientar doses de insulina.
