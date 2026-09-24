@@ -27,27 +27,56 @@ usado apenas para gerar e dividir os dados; ele **não** treina a rede.
 
 Para uma camada qualquer, a combinação linear e a ativação são:
 
-```text
-Z[l] = A[l-1] W[l] + b[l]
-A[l] = tanh(Z[l])                 (camadas ocultas)
-A[L] = sigmoid(Z[L])             (camada de saída)
-```
+$$
+\begin{aligned}
+Z^{[l]} &= A^{[l-1]}W^{[l]} + b^{[l]}, \\
+A^{[l]} &= \tanh\!\left(Z^{[l]}\right)
+&& \text{nas camadas ocultas}, \\
+\hat{y} = A^{[L]} &= \sigma\!\left(Z^{[L]}\right)
+&& \text{na camada de saída},
+\end{aligned}
+$$
 
-A perda para uma amostra de classe `y` e probabilidade prevista `ŷ` é:
+em que a função sigmoide é
 
-```text
-L = -[y log(ŷ) + (1-y) log(1-ŷ)]
-```
+$$
+\sigma(z) = \frac{1}{1 + e^{-z}}.
+$$
+
+A perda para uma amostra de classe $y$ e probabilidade prevista $\hat{y}$ é a
+entropia cruzada binária:
+
+$$
+\mathcal{L}(y, \hat{y}) =
+-\left[y\log(\hat{y}) + (1-y)\log(1-\hat{y})\right].
+$$
 
 Com entropia cruzada e sigmoide na saída, o primeiro gradiente da
-retropropagação se reduz a `δ[L] = ŷ - y`. Nas camadas ocultas aplica-se a regra
-da cadeia e a derivada `tanh'(z) = 1 - tanh²(z)`. Os parâmetros são atualizados
-por gradiente descendente:
+retropropagação se reduz a
 
-```text
-W := W - taxa * dL/dW
-b := b - taxa * dL/db
-```
+$$
+\delta^{[L]}
+= \frac{\partial \mathcal{L}}{\partial Z^{[L]}}
+= \hat{y} - y.
+$$
+
+Nas camadas ocultas aplica-se a regra da cadeia e a derivada
+$\tanh'(z)=1-\tanh^2(z)$:
+
+$$
+\delta^{[l]} =
+\left(\delta^{[l+1]}{W^{[l+1]}}^{\!T}\right)
+\odot \left(1-{A^{[l]}}^2\right),
+$$
+
+em que $\odot$ representa o produto elemento a elemento. Por fim, os parâmetros
+são atualizados por gradiente descendente com taxa de aprendizagem $\eta$:
+
+$$
+W^{[l]} \leftarrow W^{[l]} - \eta\,\frac{\partial \mathcal{L}}{\partial W^{[l]}},
+\qquad
+b^{[l]} \leftarrow b^{[l]} - \eta\,\frac{\partial \mathcal{L}}{\partial b^{[l]}}.
+$$
 
 O código correspondente está comentado em
 [`src/rede_neural_manual.py`](src/rede_neural_manual.py).
