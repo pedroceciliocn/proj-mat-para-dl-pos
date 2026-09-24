@@ -5,6 +5,9 @@ partir do `exemplo4.py` da aula de 21/08/2026. O objetivo é mostrar, de forma
 didática, a matemática da propagação direta e da retropropagação sem utilizar
 frameworks prontos de redes neurais.
 
+[Visualizar o notebook no GitHub](notebooks/projeto_rede_neural_manual.ipynb) ·
+[![Abrir no Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pedroceciliocn/proj-mat-para-dl-pos/blob/main/notebooks/projeto_rede_neural_manual.ipynb)
+
 ## O que foi modificado em relação ao exemplo
 
 | Elemento | `exemplo4.py` | Este projeto |
@@ -116,13 +119,50 @@ Os argumentos disponíveis podem ser consultados com
 uv run python executar_experimento.py --epocas 500
 ```
 
-Ao final, a pasta `resultados/` conterá:
+## Resultados
+
+O experimento reproduzível, executado com `seed = 42`, produziu os seguintes
+resultados:
+
+| Configuração/métrica | Valor |
+|---|---:|
+| Arquitetura | 2 → 8 → 4 → 1 |
+| Épocas | 3.000 |
+| Taxa de aprendizagem | 0,05 |
+| Acurácia de treino | **95,33%** |
+| Acurácia de teste | **95,33%** |
+| Perda final de treino | **0,1442** |
+
+A proximidade entre as acurácias de treino e teste indica que, nesta divisão dos
+dados, a rede aprendeu a fronteira não linear sem apresentar uma diferença
+relevante de generalização.
+
+### Curva de aprendizagem
+
+![Curva de aprendizagem da rede neural](resultados/curva_aprendizagem.png)
+
+### Fronteira de decisão
+
+![Fronteira de decisão aprendida pela rede neural](resultados/fronteira_decisao.png)
+
+Os resultados completos também estão disponíveis nos arquivos:
 
 - `curva_aprendizagem.png`: evolução da perda no treino;
 - `fronteira_decisao.png`: regiões que a rede atribui a cada classe;
 - `metricas.json`: configuração e acurácias de treino e teste.
 
-## Executando o notebook no VS Code
+## Notebook
+
+O mesmo notebook pode ser apenas visualizado no GitHub ou executado em um
+ambiente hospedado pelo Google Colab:
+
+- [Visualizar `projeto_rede_neural_manual.ipynb` no GitHub](notebooks/projeto_rede_neural_manual.ipynb);
+- [Executar o notebook no Google Colab](https://colab.research.google.com/github/pedroceciliocn/proj-mat-para-dl-pos/blob/main/notebooks/projeto_rede_neural_manual.ipynb).
+
+O link do Colab carrega diretamente o arquivo versionado neste repositório, de
+modo que os dois acessos apresentam o mesmo código.
+
+### Execução local no VS Code
 
 Abra `notebooks/projeto_rede_neural_manual.ipynb`, clique em **Select Kernel**,
 escolha **Python Environments** e selecione `.venv`. O workspace já contém a
@@ -150,33 +190,4 @@ Para ambientes sem `uv`:
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
-```
-
-## Testes
-
-```bash
-uv run pytest -q
-```
-
-Os testes verificam formatos e probabilidades, conferem a retropropagação por
-gradiente numérico e confirmam que a rede consegue aprender o problema XOR.
-Eles também são executados automaticamente pelo GitHub Actions a cada `push`
-ou `pull request`.
-
-## Organização
-
-```text
-.
-├── .github/workflows/testes.yml        # integração contínua com GitHub Actions
-├── .vscode/settings.json               # interpretador padrão do workspace
-├── exemplo4.py                         # código original do professor
-├── executar_experimento.py             # experimento reproduzível
-├── pyproject.toml                       # projeto e dependências para o uv
-├── requirements.txt                    # instalação alternativa com pip
-├── uv.lock                              # versões reproduzíveis
-├── src/rede_neural_manual.py           # rede feita somente com NumPy
-├── tests/test_rede_neural_manual.py    # testes automatizados
-├── resultados/                         # métricas e gráficos reproduzidos
-└── notebooks/
-    └── projeto_rede_neural_manual.ipynb
 ```
