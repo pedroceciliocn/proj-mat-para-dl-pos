@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rede-neural-manual"
+version = "0.1.0"
+description = "Rede neural didática implementada com NumPy"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.26,<3",
+    "matplotlib>=3.8,<4",
+    "scikit-learn>=1.4,<2",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=6,<8",
+    "pytest>=8,<9",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.setuptools.packages.find]
+include = ["src*"]

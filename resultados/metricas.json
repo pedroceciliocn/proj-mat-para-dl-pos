@@ -1,0 +1,14 @@
+{
+  "arquitetura": [
+    2,
+    8,
+    4,
+    1
+  ],
+  "epocas": 3000,
+  "taxa_aprendizado": 0.05,
+  "seed": 42,
+  "acuracia_treino": 0.9533333333333334,
+  "acuracia_teste": 0.9533333333333334,
+  "perda_final_treino": 0.14420391729487703
+}
